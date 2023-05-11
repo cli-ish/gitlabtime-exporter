@@ -1,6 +1,6 @@
 # GitlabTime Exporter
 
-Export all the time you spend on a project with problems with a quick and easy-to-use Python script.
+Export all the time you spend on a project and all of its issues with a quick and easy-to-use Python script.
 
 ### Installation and Usage
 
