@@ -17,11 +17,11 @@ You can obtain the access token for Gitlab at https://yourgitlab.com/-/profile/p
 A sample output might look like the following:
 
 ```csv
-Spend At,Project,Issue Id,Title,Time Spend,User,Summary
-10.02.2023,group/project,#500,Ticket 3,0:20:00,User 3,test message 123
-08.02.2023,group/project,#500,Ticket 3,1:00:00,User 2,Some example summary
-01.02.2023,group/project,#400,Ticket 2,0:30:00,User 2,
-01.02.2017,group/project,#120,Ticket 1,1:30:00,User 1,Test
+Spend At,Spend At Clock,Project,Issue Id,Title,Time Spend,User,Summary
+10.02.2023,12:59:17,group/project,#500,Ticket 3,0:20:00,User 3,test message 123
+08.02.2023,13:59:17,group/project,#500,Ticket 3,1:00:00,User 2,Some example summary
+01.02.2023,14:59:17,group/project,#400,Ticket 2,0:30:00,User 2,
+01.02.2017,15:59:17,group/project,#120,Ticket 1,1:30:00,User 1,Test
 ```
 
 ### Note
