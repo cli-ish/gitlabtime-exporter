@@ -9,7 +9,7 @@ git clone https://github.com/cli-ish/gitlabtime-exporter
 cd gitlabtime-exporter
 pip3 install -r requirements.txt
 python3 export.py --gitlab-instance https://yourgitlab.com --project-names group/project,group2/project2 --access-token xxxxx-XxXxXxXxXxXxXxXxXxXx
-cat timesheet-*.csv
+cat timesheet_*.csv
 ```
 
 You can obtain the access token for Gitlab at https://yourgitlab.com/-/profile/personal_access_tokens
