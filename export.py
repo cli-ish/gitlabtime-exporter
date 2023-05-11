@@ -63,6 +63,7 @@ query getProject($path: ID!, $afterCursor: String, $pageSize: Int) {
             node = issueNode["node"]
             for time_node in node["timelogs"]["edges"]:
                 new_issue = {
+                    "project": project_name,
                     "iid": node["iid"],
                     "title": node["title"],
                     "date": time_node["node"]["spentAt"],
@@ -82,25 +83,31 @@ query getProject($path: ID!, $afterCursor: String, $pageSize: Int) {
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--gitlab-instance', dest='gitlab', type=str, help='url of gitlab (https://yourgitlab.com)')
-    parser.add_argument('--project-name', dest='project', type=str, help='project path (group/project)')
+    parser.add_argument('--project-names', dest='projects', type=str, help='project path (group/project)')
     parser.add_argument('--access-token', dest='access_token', type=str,
                         help='user access token (xxxxx-XxXxXxXxXxXxXxXxXxXx)')
     args = parser.parse_args()
 
-    issues = get_issue_spend_times(args.gitlab, args.access_token, args.project)
-    filename = 'timesheet-' + args.project.replace("/", "_") + "_" + time.strftime("%Y-%m-%d") + '.csv'
+    projects = args.projects.split(",")
+    issues = []
+    for project in projects:
+        issues += get_issue_spend_times(args.gitlab, args.access_token, project)
+    filename = 'timesheet_' + time.strftime("%Y-%m-%d") + '.csv'
+
+    utcdiff = datetime_format.now() - datetime_format.utcnow()
     # newline='' added because windows added 2 newlines for each newline?
     with open(filename, 'w', newline='', encoding="utf8") as file:
         w = csv.writer(file)
         w.writerow(["Spend At", "Spend At Clock", "Project", "Issue Id", "Title", "Time Spend", "User", "Summary"])
         f = "%Y-%m-%dT%H:%M:%SZ"
         for issue in issues:
-            out = datetime_format.strptime(issue["date"], f)
+            out = datetime_format.strptime(issue["date"], f) + utcdiff
             w.writerow(
                 [
                     out.strftime("%d.%m.%Y"),
                     out.strftime("%H:%M:%S"),
-                    args.project, "#" + issue["iid"],
+                    issue["project"],
+                    "#" + issue["iid"],
                     issue["title"],
                     str(datetime.timedelta(seconds=issue["spend"])),
                     issue["user"],

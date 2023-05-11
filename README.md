@@ -1,6 +1,6 @@
 # GitlabTime Exporter
 
-Export all the time you spend on a project and all of its issues with a quick and easy-to-use Python script.
+Export all the time you spend on one or more projects and all of its issues with a quick and easy-to-use Python script.
 
 ### Installation and Usage
 
@@ -8,11 +8,12 @@ Export all the time you spend on a project and all of its issues with a quick an
 git clone https://github.com/cli-ish/gitlabtime-exporter
 cd gitlabtime-exporter
 pip3 install -r requirements.txt
-python3 export.py --gitlab-instance https://yourgitlab.com --project-name group/project --access-token xxxxx-XxXxXxXxXxXxXxXxXxXx
+python3 export.py --gitlab-instance https://yourgitlab.com --project-names group/project,group2/project2 --access-token xxxxx-XxXxXxXxXxXxXxXxXxXx
 cat timesheet-*.csv
 ```
 
 You can obtain the access token for Gitlab at https://yourgitlab.com/-/profile/personal_access_tokens
+The access token needs the permission `read_api` to read the relevant results.
 
 A sample output might look like the following:
 
@@ -22,6 +23,7 @@ Spend At,Spend At Clock,Project,Issue Id,Title,Time Spend,User,Summary
 08.02.2023,13:59:17,group/project,#500,Ticket 3,1:00:00,User 2,Some example summary
 01.02.2023,14:59:17,group/project,#400,Ticket 2,0:30:00,User 2,
 01.02.2017,15:59:17,group/project,#120,Ticket 1,1:30:00,User 1,Test
+01.02.2017,15:59:17,group2/project2,#20,Ticket 10,1:20:00,User 1,Test
 ```
 
 ### Note
